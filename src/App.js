@@ -2,40 +2,46 @@ import React, { useState } from 'react';
 // import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 // import logo from './logo.svg';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 const useStyles = makeStyles(theme => ({
-  card: {
-    minWidth: 275
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white
+    }
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)'
-  },
-  title: {
-    fontSize: 14
-  },
-  pos: {
-    marginBottom: 12
-  },
-  container: {
+  paper: {
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(2),
     display: 'flex',
-    flexWrap: 'wrap'
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 25
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main
   },
-  dense: {
-    marginTop: theme.spacing(2)
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
   },
-  menu: {
-    width: 200
+  submit: {
+    margin: theme.spacing(3, 0, 2)
   }
 }));
 
@@ -48,22 +54,75 @@ const App = () => {
     setData({ ...data, [target.name]: target.value });
   };
 
+  const handleSubmit = () => {
+    console.log(data);
+  };
+
   return (
     <React.Fragment>
       <ToastContainer />
-      <main className='container'>
-        <Card className={classes.card}>
-          <TextField
-            label='Email'
-            name='email'
-            className={classes.textField}
-            value={data.username}
-            onChange={handleChange}
-            margin='normal'
-            variant='outlined'
-          />
+      <Container component='main' maxWidth='xs'>
+        <CssBaseline />
+
+        <Card className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component='h1' variant='h5'>
+            Sign in
+          </Typography>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='email'
+              label='Email Address'
+              name='email'
+              onChange={handleChange}
+              autoComplete='email'
+              autoFocus
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              name='password'
+              label='Password'
+              type='password'
+              id='password'
+              onChange={handleChange}
+              autoComplete='current-password'
+            />
+            <FormControlLabel
+              control={<Checkbox value='remember' color='primary' />}
+              label='Remember me'
+            />
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+              className={classes.submit}>
+              Sign In
+            </Button>
+          </form>
         </Card>
-      </main>
+        <Grid container>
+          <Grid item xs>
+            <Link href='#' variant='body2'>
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link href='#' variant='body2'>
+              {"Don't have an account? Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
+      </Container>
     </React.Fragment>
   );
 };

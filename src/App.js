@@ -54,7 +54,8 @@ const App = () => {
     setData({ ...data, [target.name]: target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = event => {
+    event.preventDefault();
     console.log(data);
   };
 
